@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     *, *::after, *::before {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
     }
 
     .overline {
@@ -40,6 +41,7 @@ const GlobalStyle = createGlobalStyle`
         line-height: 25px;
         letter-spacing: 0px;
         opacity: 75%;
+        height
     }
 
     .productTitle {
@@ -52,5 +54,5 @@ const GlobalStyle = createGlobalStyle`
         align-items: center;
         gap: 5px;
     }
-`
-export default GlobalStyle
+`;
+export default GlobalStyle;
