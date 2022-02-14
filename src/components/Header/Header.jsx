@@ -3,10 +3,10 @@ import Image from "next/image";
 import audiophileIcon from "../../../public/audiophile.svg";
 import cartIcon from "../../../public/cart.svg";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import SeeProductBtn from "../buttons/SeeProduct";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCart, removeAll } from "../../state/cartSlice";
+import { selectCart, minus, add, removeAll } from "../../state/cartSlice";
 
 const StyledHeader = styled.header`
   position: relative;
@@ -47,8 +47,8 @@ const StyledModal = styled.div`
   gap: 20px;
   flex-flow: column nowrap;
   align-items: center;
-  right: 300px;
-  top: 200px;
+  right: 100px;
+  top: 110px;
   background-color: white;
   z-index: 1000;
   border-radius: 5px;
@@ -112,7 +112,7 @@ const StyledCartItem = styled.div`
     font-size: 15px;
   }
 
-  & h7 {
+  & h4 {
     font-size: 14px;
     opacity: 50%;
   }
@@ -139,7 +139,11 @@ function Header() {
   const cartState = useSelector(selectCart);
   const dispatch = useDispatch();
 
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const MyLink = React.forwardRef((props, ref) => (
+    <Link innerRef={ref} {...props} />
+  ));
 
   return (
     <>
@@ -152,7 +156,7 @@ function Header() {
           <CartItemContainer>
             {cartState.map((item) => {
               return (
-                <StyledCartItem>
+                <StyledCartItem key={item.id}>
                   <div className="flexRow">
                     <Image
                       src={item.image.desktop.substring(1)}
@@ -161,13 +165,21 @@ function Header() {
                     />
                     <div>
                       <h6>{item.name}</h6>
-                      <h7>{`$ ${item.price}`}</h7>
+                      <h4>{`$ ${item.price}`}</h4>
                     </div>
                   </div>
                   <QuantityButton>
-                    <button>-</button>
-                    <p>0</p>
-                    <button>+</button>
+                    <button
+                      onClick={() => {
+                        if (item.quantity != 0) {
+                          dispatch(minus(item));
+                        }
+                      }}
+                    >
+                      -
+                    </button>
+                    <p>{item.quantity}</p>
+                    <button onClick={() => dispatch(add(item))}>+</button>
                   </QuantityButton>
                 </StyledCartItem>
               );
@@ -179,7 +191,7 @@ function Header() {
               {`$ ${
                 cartState.length &&
                 cartState.reduce((prevItem, currentItem) => {
-                  return prevItem + currentItem.price;
+                  return prevItem + currentItem.totalPrice;
                 }, 0)
               }`}
             </h4>
@@ -189,22 +201,22 @@ function Header() {
       ) : null}
       <StyledHeader>
         <div>
-          <Link href="/">
+          <MyLink href="/">
             <Image src={audiophileIcon} height={25} width={145} />
-          </Link>
+          </MyLink>
           <ul>
-            <Link href="/">
+            <MyLink href="/">
               <li>HOME</li>
-            </Link>
-            <Link href="/headphones">
+            </MyLink>
+            <MyLink href="/headphones">
               <li>HEADPHONES</li>
-            </Link>
-            <Link href="/speakers">
+            </MyLink>
+            <MyLink href="/speakers">
               <li>SPEAKERS</li>
-            </Link>
-            <Link href="earphones">
+            </MyLink>
+            <MyLink href="  /earphones">
               <li>EARPHONES</li>
-            </Link>
+            </MyLink>
           </ul>
           <Image
             src={cartIcon}

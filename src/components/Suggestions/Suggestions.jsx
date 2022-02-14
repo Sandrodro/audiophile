@@ -48,7 +48,7 @@ function Suggestions({ otherProducts }) {
       <CardContainer>
         {otherProducts.map((product) => {
           return (
-            <Link href={`/product/${product.slug}`} passHref>
+            <Link href={`/product/${product.slug}`} passHref key={product.slug}>
               <Card>
                 <Image
                   src={product.image.desktop.substring(1)}

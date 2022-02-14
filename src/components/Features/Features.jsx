@@ -56,7 +56,7 @@ function Features({ features, box }) {
       <Column className="paragraph">
         <h1>FEATURES</h1>
         {features.split("\n").map((str) => (
-          <p>{str}</p>
+          <p key={str}>{str}</p>
         ))}
       </Column>
       <Column>
@@ -64,7 +64,7 @@ function Features({ features, box }) {
         <ul>
           {box.map((item) => {
             return (
-              <li>
+              <li key={item.item}>
                 <span className="orange">{`${item.quantity}x`}</span>
                 <span className="item">{item.item}</span>
               </li>

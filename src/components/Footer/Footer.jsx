@@ -2,6 +2,7 @@ import styled from "styled-components";
 import audiophileIcon from "../../../public/audiophile.svg";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 const FooterContainer = styled.footer`
   width: 100%;
@@ -47,13 +48,17 @@ const FooterContainer = styled.footer`
 `;
 
 function Footer() {
+  const MyLink = React.forwardRef((props, ref) => (
+    <Link innerRef={ref} {...props} />
+  ));
+
   return (
     <FooterContainer>
       <div className="flexContainer">
         <div>
-          <Link href="/">
+          <MyLink href="/">
             <Image src={audiophileIcon} width={143} height={25} />
-          </Link>
+          </MyLink>
           <p>
             Audiophile is an all in one stop to fulfill your audio needs. We're
             a small team of music lovers and sound specialists who are devoted
@@ -64,18 +69,18 @@ function Footer() {
         </div>
         <div>
           <ul>
-            <Link href="/">
+            <MyLink href="/">
               <li>HOME</li>
-            </Link>
-            <Link href="/headphones">
+            </MyLink>
+            <MyLink href="/headphones">
               <li>HEADPHONES</li>
-            </Link>
-            <Link href="/speakers">
+            </MyLink>
+            <MyLink href="/speakers">
               <li>SPEAKERS</li>
-            </Link>
-            <Link href="/earphones">
+            </MyLink>
+            <MyLink href="/earphones">
               <li>EARPHONES</li>
-            </Link>
+            </MyLink>
           </ul>
         </div>
       </div>

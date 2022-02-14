@@ -4,10 +4,12 @@ import Theme from "../src/styles/theme";
 import "../src/styles/styles.css";
 import { Provider } from "react-redux";
 import store from "../src/state/store";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
+      <Toaster />
       <GlobalStyle />
       <Theme>
         <Layout>

@@ -8,7 +8,7 @@ import About from "../../src/components/About/About";
 import ProductCards from "../../src/components/ProductCards/ProductCards";
 import Suggestions from "../../src/components/Suggestions/Suggestions";
 import { useSelector, useDispatch } from "react-redux";
-import { add, remove, selectCart } from "../../src/state/cartSlice";
+import { add, remove, minus, selectCart } from "../../src/state/cartSlice";
 
 function ProductPage() {
   const router = useRouter();
@@ -28,15 +28,10 @@ function ProductPage() {
   }, [slug]);
 
   useEffect(() => {
-    if (Object.keys(product).length) {
+    if (product && Object.keys(product).length) {
       setLoaded(true);
-      console.log("PRODUCT", product);
     }
   }, [product]);
-
-  useEffect(() => {
-    console.log("CART", cart);
-  }, [cart]);
 
   return (
     <main>
@@ -52,6 +47,8 @@ function ProductPage() {
             dispatch={dispatch}
             add={add}
             remove={remove}
+            minus={minus}
+            slug={slug}
             product={product}
           />
           <Features features={product.features} box={product.includes} />

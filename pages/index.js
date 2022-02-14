@@ -19,10 +19,10 @@ function Home() {
           descr:
             "Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast.",
         }}
-        productId={4}
+        productId={"xx99-mark-two-headphones"}
       />
       <ProductCards />
-      <Link href="/product/6" passHref>
+      <Link href="/product/zx9-speaker" passHref>
         <FlashyHeroImage
           text={{
             headline: `ZX9\n SPEAKER`,
@@ -31,14 +31,14 @@ function Home() {
           }}
         />
       </Link>
-      <Link href="/product/5" passHref>
+      <Link href="/product/zx7-speaker" passHref>
         <MediumFlashyHeroImage
           text={{
             headline: "ZX7 SPEAKER",
           }}
         />
       </Link>
-      <Link href="/product/1">
+      <Link href="/product/yx1-earphones">
         <div className={styles.twoImages}>
           <Image src={btHeadphoneImage} width={520} height={320} />
           <div className={styles.yx1Card}>

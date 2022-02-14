@@ -15,7 +15,7 @@ function Speakers() {
       <CategoryHeader category="SPEAKERS" />
       {pageData.map((item, index) => {
         return (
-          <Link href={`/product/${item.slug}`} passHref>
+          <Link href={`/product/${item.slug}`} key={index} passHref>
             <NewProductCard
               imageUrl={item.image.desktop.substring(1)}
               headline={item.name}

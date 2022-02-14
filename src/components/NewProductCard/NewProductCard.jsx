@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import data from "../../../data.json";
 import Image from "next/image";
+import { selectCart } from "../../state/cartSlice";
+import { useSelector } from "react-redux";
 import SeeProductBtn from "../../components/buttons/SeeProduct";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Container = styled.section`
   width: 1300px;
@@ -80,12 +82,27 @@ const NewProductCard = React.forwardRef(
       onClick,
       add,
       remove,
+      minus,
       dispatch,
       product,
+      slug,
     },
     ref
   ) => {
+    const cartState = useSelector(selectCart);
+
     const [quantity, setQuantity] = useState(0);
+
+    useEffect(() => {
+      if (cartState && product) {
+        const neededProduct = cartState.find((item) => item.id == product.id);
+        if (neededProduct && neededProduct.quantity) {
+          setQuantity(neededProduct.quantity);
+        } else {
+          setQuantity(0);
+        }
+      }
+    }, [cartState, slug, product]);
 
     return (
       <Container left={left}>
@@ -103,7 +120,9 @@ const NewProductCard = React.forwardRef(
                       setQuantity((quantity) =>
                         quantity === 0 ? 0 : quantity - 1
                       );
-                      dispatch(remove(product.id));
+                      if (quantity != 0) {
+                        dispatch(minus(product));
+                      }
                     }}
                   >
                     -
